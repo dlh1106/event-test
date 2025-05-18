@@ -1,0 +1,10 @@
+Dockerfile
+node_modules
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+dist
+.git
+.DS_Store
+.env
+# 프로젝트에 따라 추가적으로 제외할 파일/폴더를 여기에 추가하세요.
