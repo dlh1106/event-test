@@ -37,11 +37,11 @@ export class AppController {
   @ApiOperation({
     summary: 'Proxy to Backend Services',
     description: `
-      Proxies all incoming requests starting with /auth or /event to the respective backend services after authentication and authorization.
-      - Requests to /auth/* are forwarded to Auth Service (${process.env.AUTH_SERVICE_URL || 'http://auth-server:3000'}).
-      - Requests to /event/* are forwarded to Event Service (${process.env.EVENT_SERVICE_URL || 'http://event-server:3000'}).
-      The original method, headers, body, and query parameters are preserved.
-      Note: Specific DTOs and detailed response schemas are defined in the backend services' Swagger documentation.
+      인증 및 인가 후 /auth 또는 /event로 시작하는 모든 수신 요청을 각 백엔드 서비스로 프록시합니다.
+      - /auth/* 로의 요청은 인증 서비스(${process.env.AUTH_SERVICE_URL || 'http://auth-server:3000'})로 전달됩니다.
+      - /event/* 로의 요청은 이벤트 서비스(${process.env.EVENT_SERVICE_URL || 'http://event-server:3000'})로 전달됩니다.
+      원본 요청의 메소드, 헤더, 본문 및 쿼리 파라미터는 그대로 유지됩니다.
+      참고: 특정 DTO 및 상세 응답 스키마는 각 백엔드 서비스의 Swagger 문서에 정의되어 있습니다.
     `,
   })
   @ApiHeader({ name: 'Authorization', description: 'Bearer token for authentication (passed through)', required: false })
