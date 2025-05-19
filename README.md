@@ -9,8 +9,6 @@
 - **Event Server :** 이벤트 생성/관리, 보상 생성/관리, 사용자의 보상 요청 처리 및 보상 요청 내역 관리 등 핵심 비즈니스 로직을 담당.
 - **MongoDB:** 각 서비스의 데이터를 저장하는 NoSQL 데이터베이스. Docker Compose를 통해 독립된 컨테이너로 실행.
 
-각 서비스는 Docker 컨테이너로 격리되어 있으며, Docker 네트워크를 통해 서로 통신합니다. Docker Compose 파일 하나로 전체 시스템을 쉽게 배포하고 관리할 수 있습니다.
-
 ## 기술 스택
 
 - 백엔드: Node.js, NestJS, TypeScript
