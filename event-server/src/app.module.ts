@@ -8,7 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     EventModule,
     CouponModule,
     MongooseModule.forRoot(
-      process.env.MONGODB_URI || 'mongodb://mongo:27017/',
+      process.env.MONGODB_URI || 'mongodb://localhost:27017/',
       // docker-compose.yml에서 MONGODB_URI=mongodb://mongo:27017/event_db 로 설정됨
     ),
   ],
