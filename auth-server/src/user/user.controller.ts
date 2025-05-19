@@ -3,12 +3,12 @@ import {
   Post,
   Body,
   Get,
-  Put,
-  Delete,
   Request,
   UseGuards,
   HttpCode,
   HttpStatus,
+  Put,
+  Delete,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -20,7 +20,6 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { CreateUserDto } from '../common/dto/create.user.dto';
-import { LoginUserDto } from '../common/dto/login.user.dto';
 import { UpdateUserDto } from '../common/dto/update.user.dto';
 import { User } from './entities/user.schema'; // 스키마 직접 사용 또는 UserResponseDto 생성
 
@@ -38,37 +37,6 @@ export class UserController {
   async signUp(@Body() createUserDto: CreateUserDto) {
     // UserService.signUp은 passwordHash를 제외한 User 객체를 반환합니다.
     return this.userService.signUp(createUserDto);
-  }
-
-  @Post('login')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: '로그인' })
-  @ApiBody({ type: LoginUserDto })
-  @ApiResponse({
-    status: 200,
-    description: '로그인 성공, 액세스 토큰 발급',
-    schema: {
-      properties: {
-        accessToken: { type: 'string' },
-        user: { $ref: '#/components/schemas/User' }, // User 스키마 참조 (passwordHash 제외)
-      },
-    },
-  })
-  @ApiResponse({ status: 401, description: '인증 실패' })
-  async login(@Body() loginUserDto: LoginUserDto) {
-    return this.userService.login(loginUserDto);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Post('logout')
-  @HttpCode(HttpStatus.OK)
-  @ApiBearerAuth()
-  @ApiOperation({ summary: '로그아웃' })
-  @ApiResponse({ status: 200, description: '로그아웃 성공' })
-  async logout(@Request() req) {
-    // JWT는 stateless이므로 서버측에서 특별한 작업은 없을 수 있으나,
-    // 필요시 토큰 블랙리스트 등에 req.user.userId (또는 sub)를 활용 가능
-    return this.userService.logout(req.user.userId);
   }
 
   @UseGuards(AuthGuard('jwt'))

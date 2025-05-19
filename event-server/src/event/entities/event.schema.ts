@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type EventDocument = Event & Document;
 
-@Schema({ timestamps: true }) // 생성 및 수정 시간 자동 관리
+@Schema({ timestamps: true, collection: 'events' }) // 생성 및 수정 시간 자동 관리
 export class Event {
   @Prop({ required: true })
   name: string; // 이벤트명

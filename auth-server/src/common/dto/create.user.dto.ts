@@ -6,6 +6,7 @@ import {
   MaxLength,
   IsOptional,
   Matches,
+  IsEnum,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger'; // Swagger 문서화를 위해 추가
 
@@ -42,4 +43,17 @@ export class CreateUserDto {
   @IsOptional()
   @MaxLength(20)
   phoneNumber?: string;
+
+  @ApiProperty({
+    example: 'USER',
+    description: '사용자 역할 (USER, OPERATOR, AUDITOR, ADMIN)',
+    required: true, // 필수로 변경
+    enum: ['USER', 'OPERATOR', 'AUDITOR', 'ADMIN'],
+  })
+  @IsNotEmpty({ message: '사용자 역할을 선택해주세요.' })
+  @IsEnum(['USER', 'OPERATOR', 'AUDITOR', 'ADMIN'], {
+    message: '유효한 역할(USER, OPERATOR, AUDITOR, ADMIN)을 선택해주세요.',
+  })
+  role: 'USER' | 'OPERATOR' | 'AUDITOR' | 'ADMIN'; // Optional(?) 제거
+
 }

@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { RoutesModule } from './routes/index';
+import { HttpModule } from '@nestjs/axios'; // HttpModule 임포트
+import { AppController } from './app.controller'; // AppController 임포트
+
 
 @Module({
-  imports: [AuthModule, RoutesModule],
+  imports: [HttpModule], // HttpModule 추가
+  controllers: [AppController], // AppController 추가
 })
 export class AppModule {}

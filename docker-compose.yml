@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  gate-server:
+    build:
+      container_name: gate-server
+      context: ./gate-server # Assumes Dockerfile is in /home/dlh1106/nodetest/gate-server
+    ports:
+      - "3000:3000" # Exposes port 3000 on the host
+    environment:
+      - NODE_ENV=development
+      - AUTH_SERVICE_URL=http://auth-server:3000 # 내부 포트 3000으로 변경
+      - EVENT_SERVICE_URL=http://event-server:3000 # 내부 포트 3000으로 변경
+    networks:
+      - app-network
+    depends_on:
+      - auth-server
+      - event-server
+    restart: unless-stopped
+
+  auth-server:
+    build:
+      container_name: auth-server
+      context: ./auth-server # Assumes Dockerfile is in /home/dlh1106/nodetest/auth-server
+    ports:
+      - "3001:3000" # Exposes port 3001 on the host
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo:27017/ # Connects to mongo service on port 27017, db name 'auth_db'
+      - JWT_SECRET=YOUR_VERY_SECRET_KEY_AUTH_SERVER # Example, manage secrets properly
+    networks:
+      - app-network
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  event-server:
+    build:
+      container_name: event-server
+      context: ./event-server # Assumes Dockerfile is in /home/dlh1106/nodetest/event-server
+    ports: # 호스트 3002 -> 컨테이너 3000
+      - "3002:3000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo:27017/ # Connects to mongo service on port 27017, db name 'event_db'
+    networks:
+      - app-network
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017" # Exposes MongoDB port to host (optional, for direct access)
+    volumes:
+      - mongo-data:/data/db # Persists MongoDB data
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data: # Docker managed volume for MongoDB data

@@ -27,7 +27,7 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
 
 
-  await app.listen(process.env.AUTH_PORT || 3001); // auth-server 포트
+  await app.listen(process.env.AUTH_PORT || 3000); // auth-server 포트
   console.log(`Auth server is running on: ${await app.getUrl()}/api-docs`);
 }
 bootstrap();
