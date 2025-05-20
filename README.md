@@ -24,6 +24,6 @@
 
 ## 서비스 접근
 
-- API Gateway (클라이언트 요청): `(http://localhost:3000/api)`
+- API Gateway (클라이언트 요청): (http://localhost:3000/api)
 - auth 서버 api 문서 접근 http://localhost:3001/api-docs (일반적으론 gate 서버로 접근 가능하나 접속가능)
 - event 서버 api 문서 접근 http://localhost:3002/api-docs (일반적으론 gate 서버로 접근 가능하나 접속가능)
