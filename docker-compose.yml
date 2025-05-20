@@ -9,8 +9,8 @@ services:
       - "3000:3000" # Exposes port 3000 on the host
     environment:
       - NODE_ENV=development
-      - AUTH_SERVICE_URL=http://auth-server:3001 # 내부 포트 3000으로 변경
-      - EVENT_SERVICE_URL=http://event-server:3002 # 내부 포트 3000으로 변경
+      - AUTH_SERVICE_URL=http://auth-server:3000 # 내부 포트 3000으로 변경
+      - EVENT_SERVICE_URL=http://event-server:3000 # 내부 포트 3000으로 변경
     networks:
       - app-network
     depends_on:
