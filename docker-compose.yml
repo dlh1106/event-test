@@ -4,6 +4,7 @@ services:
   gate-server:
     build:
       context: ./gate-server # Assumes Dockerfile is in /home/dlh1106/nodetest/gate-server
+    container_name: gate-server
     ports:
       - "3000:3000" # Exposes port 3000 on the host
     environment:
@@ -20,6 +21,7 @@ services:
   auth-server:
     build:
       context: ./auth-server # Assumes Dockerfile is in /home/dlh1106/nodetest/auth-server
+    container_name: auth-server
     ports:
       - "3001:3000" # Exposes port 3001 on the host
     environment:
@@ -35,6 +37,7 @@ services:
   event-server:
     build:
       context: ./event-server # Assumes Dockerfile is in /home/dlh1106/nodetest/event-server
+    container_name: event-server
     ports: # 호스트 3002 -> 컨테이너 3000
       - "3002:3000"
     environment:
@@ -48,6 +51,7 @@ services:
 
   mongo:
     image: mongo:latest
+    container_name: mongo-db
     ports:
       - "27017:27017" # Exposes MongoDB port to host (optional, for direct access)
     volumes:
